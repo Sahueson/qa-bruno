@@ -1,0 +1,31 @@
+meta {
+  name: TC-API12 Login correcto devuelve token
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/auth/v1/token?grant_type=password
+  body: json
+  auth: none
+}
+
+headers {
+  apikey: {{anon_key}}
+}
+
+body:json {
+  {"email":"qa.player.mad@example.com","password":"{{qa_password}}"}
+}
+
+script:pre-request {
+  if (!bru.getEnvVar('qa_password')) { bru.runner.skipRequest(); return; }
+}
+
+tests {
+  test("TC-API12 Login correcto devuelve token", function () {
+    const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);
+    expect([200]).to.include(res.status);
+    expect(res.body.access_token).to.be.a('string').that.is.not.empty;
+  });
+}

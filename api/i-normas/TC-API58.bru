@@ -1,0 +1,23 @@
+meta {
+  name: TC-API58 El ping keep_alive responde
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{base_url}}/rest/v1/keep_alive?select=id&id=eq.1
+  body: none
+  auth: none
+}
+
+headers {
+  apikey: {{anon_key}}
+}
+
+tests {
+  test("TC-API58 El ping keep_alive responde", function () {
+    const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);
+    expect([200]).to.include(res.status);
+    expect(res.body).to.be.an('array').that.is.not.empty;
+  });
+}
