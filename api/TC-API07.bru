@@ -1,0 +1,25 @@
+meta {
+  name: TC-API07 Anónimo no crea excedencias
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{base_url}}/rest/v1/player_leaves
+  body: json
+  auth: none
+}
+
+headers {
+  apikey: {{anon_key}}
+}
+
+body:json {
+  {"reason":"x"}
+}
+
+tests {
+  test("TC-API07 Anónimo no crea excedencias", function () {
+    expect([401,403]).to.include(res.status);
+  });
+}

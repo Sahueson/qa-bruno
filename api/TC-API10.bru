@@ -1,0 +1,17 @@
+meta {
+  name: TC-API10 Sin apikey se rechaza
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{base_url}}/rest/v1/events?select=id
+  body: none
+  auth: none
+}
+
+tests {
+  test("TC-API10 Sin apikey se rechaza", function () {
+    expect([401]).to.include(res.status);
+  });
+}

@@ -1,0 +1,22 @@
+meta {
+  name: TC-API01 Anónimo no ve partidas (RLS)
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/rest/v1/events?select=id
+  body: none
+  auth: none
+}
+
+headers {
+  apikey: {{anon_key}}
+}
+
+tests {
+  test("TC-API01 Anónimo no ve partidas (RLS)", function () {
+    expect([200]).to.include(res.status);
+    expect(res.body).to.be.an('array').that.is.empty;
+  });
+}

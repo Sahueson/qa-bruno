@@ -1,0 +1,26 @@
+meta {
+  name: TC-API11 Login con contraseña incorrecta falla
+  type: http
+  seq: 11
+}
+
+post {
+  url: {{base_url}}/auth/v1/token?grant_type=password
+  body: json
+  auth: none
+}
+
+headers {
+  apikey: {{anon_key}}
+}
+
+body:json {
+  {"email":"qa.player.mad@example.com","password":"contraseña-incorrecta"}
+}
+
+tests {
+  test("TC-API11 Login con contraseña incorrecta falla", function () {
+    expect([400]).to.include(res.status);
+    expect(res.body.error_code).to.equal("invalid_credentials");
+  });
+}

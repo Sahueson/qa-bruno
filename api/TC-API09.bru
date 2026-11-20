@@ -1,0 +1,22 @@
+meta {
+  name: TC-API09 El ping keep_alive responde
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{base_url}}/rest/v1/keep_alive?select=id&id=eq.1
+  body: none
+  auth: none
+}
+
+headers {
+  apikey: {{anon_key}}
+}
+
+tests {
+  test("TC-API09 El ping keep_alive responde", function () {
+    expect([200]).to.include(res.status);
+    expect(res.body).to.be.an('array').that.is.not.empty;
+  });
+}

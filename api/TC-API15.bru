@@ -1,0 +1,38 @@
+meta {
+  name: TC-API15 Bloqueado no ve ninguna partida
+  type: http
+  seq: 15
+}
+
+get {
+  url: {{base_url}}/rest/v1/events?select=id
+  body: none
+  auth: none
+}
+
+headers {
+  apikey: {{anon_key}}
+  Authorization: Bearer {{token}}
+}
+
+script:pre-request {
+  if (!bru.getEnvVar('qa_password')) { bru.runner.skipRequest(); return; }
+  const axios = require('axios');
+  const emails = {"superadmin":"qa.superadmin@example.com","player_mad":"qa.player.mad@example.com","player_foe":"qa.player.foe@example.com","blocked":"qa.blocked@example.com"};
+  let token = 'SIN_LOGIN';
+  try {
+    const r = await axios.post(bru.getEnvVar('base_url') + '/auth/v1/token?grant_type=password',
+      { email: emails['blocked'], password: bru.getEnvVar('qa_password') },
+      { headers: { apikey: bru.getEnvVar('anon_key') } });
+    token = r.data.access_token;
+  } catch (e) { token = 'SIN_LOGIN'; }
+  bru.setVar('token', token);
+}
+
+tests {
+  test("TC-API15 Bloqueado no ve ninguna partida", function () {
+    expect(bru.getVar('token'), 'login previo').to.not.equal('SIN_LOGIN');
+    expect([200]).to.include(res.status);
+    expect(res.body).to.be.an('array').that.is.empty;
+  });
+}
