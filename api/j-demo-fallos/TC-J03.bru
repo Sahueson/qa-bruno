@@ -1,0 +1,22 @@
+meta {
+  name: TC-J03 El endpoint de estadísticas de partidas responde 200
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/rest/v1/event_stats?select=id
+  body: none
+  auth: none
+}
+
+headers {
+  apikey: {{anon_key}}
+}
+
+tests {
+  test("TC-J03 El endpoint de estadísticas de partidas responde 200", function () {
+    const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);
+    expect([200]).to.include(res.status);
+  });
+}
