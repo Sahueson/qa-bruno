@@ -1,0 +1,22 @@
+meta {
+  name: TC-A04 Anónimo no lee perfiles
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{base_url}}/rest/v1/profiles?select=id
+  body: none
+  auth: none
+}
+
+headers {
+  apikey: {{anon_key}}
+}
+
+tests {
+  test("TC-A04 Anónimo no lee perfiles", function () {
+    const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);
+    expect([401,403]).to.include(res.status);
+  });
+}

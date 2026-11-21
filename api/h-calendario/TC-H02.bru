@@ -1,0 +1,26 @@
+meta {
+  name: TC-H02 Anónimo no crea fechas sin partida
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/rest/v1/team_blackouts
+  body: json
+  auth: none
+}
+
+headers {
+  apikey: {{anon_key}}
+}
+
+body:json {
+  {"squad":"MAD Irregulars","start_date":"2030-01-01","end_date":"2030-01-02"}
+}
+
+tests {
+  test("TC-H02 Anónimo no crea fechas sin partida", function () {
+    const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);
+    expect([401,403]).to.include(res.status);
+  });
+}

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Ejecuta suites de la colección de Bruno contra el staging y escribe result.json (formato del lab).
-#   SUITE=a-auth[,b-eventos...]  GREP='TC-API01 Anónimo…|TC-API02 …' (opcional)  ./run.sh
-# SUITE se limpia a caracteres de slug; de cada nombre de GREP solo se usa el id (TC-APInn) para localizar su .bru.
+#   SUITE=a-auth[,b-eventos...]  GREP='TC-A01 Anónimo…|TC-A02 …' (opcional)  ./run.sh
+# SUITE se limpia a caracteres de slug; de cada nombre de GREP solo se usa el id (TC-Xnn) para localizar su .bru.
 # Con STG_SECRET_KEY reserva y resetea el staging; sin ella (local) solo lanza las pruebas.
 # Sin QA_PASSWORD los casos con login salen "omitidos".
 set -euo pipefail

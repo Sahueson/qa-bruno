@@ -1,0 +1,43 @@
+meta {
+  name: TC-G03 Jugador FOE no ve perfiles de MAD
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/rest/v1/profiles?select=nickname&nickname=eq.QA%20Jugador%20MAD
+  body: none
+  auth: none
+}
+
+headers {
+  apikey: {{anon_key}}
+  Authorization: Bearer {{token}}
+}
+
+script:pre-request {
+  if (!bru.getEnvVar('qa_password')) { bru.runner.skipRequest(); return; }
+  const user = 'player_foe';
+  if (bru.getVar('tok_' + user)) { bru.setVar('token', bru.getVar('tok_' + user)); bru.setVar('uid', bru.getVar('uid_' + user)); return; }
+  const axios = require('axios');
+  const emails = {"superadmin":"qa.superadmin@example.com","admin_mad":"qa.admin.mad@example.com","admin_foe":"qa.admin.foe@example.com","junta2":"qa.junta2@example.com","player_foe":"qa.player.foe@example.com","player_mad":"qa.player.mad@example.com","blocked":"qa.blocked@example.com","sinequipo":"qa.sinequipo@example.com"};
+  let token = 'SIN_LOGIN', uid = '';
+  try {
+    const r = await axios.post(bru.getEnvVar('base_url') + '/auth/v1/token?grant_type=password',
+      { email: emails[user], password: bru.getEnvVar('qa_password') },
+      { headers: { apikey: bru.getEnvVar('anon_key') } });
+    token = r.data.access_token; uid = r.data.user.id;
+    bru.setVar('tok_' + user, token); bru.setVar('uid_' + user, uid);
+  } catch (e) { token = 'SIN_LOGIN'; }
+  bru.setVar('token', token);
+  bru.setVar('uid', uid);
+}
+
+tests {
+  test("TC-G03 Jugador FOE no ve perfiles de MAD", function () {
+    const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);
+    expect(bru.getVar('token'), 'login previo').to.not.equal('SIN_LOGIN');
+    expect([200]).to.include(res.status);
+    expect(res.body).to.be.an('array').that.is.empty;
+  });
+}

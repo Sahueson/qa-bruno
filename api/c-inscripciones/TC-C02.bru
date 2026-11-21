@@ -1,0 +1,26 @@
+meta {
+  name: TC-C02 Anónimo no se inscribe
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/rest/v1/event_registrations
+  body: json
+  auth: none
+}
+
+headers {
+  apikey: {{anon_key}}
+}
+
+body:json {
+  {"event_id":"00000000-0000-0000-0000-000000000000","profile_id":"00000000-0000-0000-0000-000000000000","team":"x","role":"y"}
+}
+
+tests {
+  test("TC-C02 Anónimo no se inscribe", function () {
+    const get = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : Array.isArray(a) && !/^\d+$/.test(k) ? a.map((x) => x == null ? x : x[k]) : a[k]), o);
+    expect([401,403]).to.include(res.status);
+  });
+}
