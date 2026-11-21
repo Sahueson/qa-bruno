@@ -14,6 +14,10 @@ const tests = results.map((r) => {
     role: roles[name.split(" ")[0]] || "Anónimo",
     error: failedTest ? failedTest.error || "Fallo en el test" : r.error || null,
     evidence_url: null,
+    evidence_data: r.request ? {
+      request: { method: r.request.method, url: r.request.url, headers: r.request.headers, body: r.request.data },
+      response: r.response ? { status: r.response.status, time_ms: r.response.responseTime, body: r.response.data } : null,
+    } : undefined,
   };
 }).sort((a, b) => a.name.localeCompare(b.name));
 const count = (s) => tests.filter((t) => t.status === s).length;
