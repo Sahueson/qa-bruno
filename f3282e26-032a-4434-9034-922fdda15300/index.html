@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Informe de Bruno</title>
+<style>
+:root{color-scheme:light dark;--bg:#f6f5f1;--card:#fff;--line:#e3e1da;--txt:#171717;--mut:#6b6b66}
+@media(prefers-color-scheme:dark){:root{--bg:#121212;--card:#1c1c1c;--line:#2e2e2e;--txt:#ececec;--mut:#9a9a94}}
+body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.5 system-ui,sans-serif}main{max-width:1000px;margin:0 auto;padding:32px 20px}
+h1{margin:0 0 4px;font-size:28px}p.sub{margin:0 0 24px;color:var(--mut)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:24px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px}.kpi b{display:block;font-size:28px}.kpi span{color:var(--mut);font-size:12px}
+.kpi.hero{background:#111;color:#fff}.kpi.hero span{color:#bbb}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+td{padding:12px 14px;border-top:1px solid var(--line);vertical-align:top}tr:first-child td{border-top:0}td.num{text-align:right;white-space:nowrap;color:var(--mut)}
+.tag{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:600}
+.tag.passed{background:#10b98122;color:#059669}.tag.failed{background:#ef444422;color:#dc2626}.tag.skipped{background:#f59e0b22;color:#d97706}
+small{color:var(--mut)}details{margin-top:6px}summary{cursor:pointer;color:var(--mut);font-size:13px}
+pre{background:#0d0d0d;color:#d6d6d6;padding:12px;border-radius:12px;overflow:auto;font-size:12px;white-space:pre-wrap;word-break:break-word}pre.err{color:#fca5a5}
+img{max-width:100%;border:1px solid var(--line);border-radius:12px;margin-top:6px}footer{margin-top:24px;color:var(--mut);font-size:12px}
+</style></head><body><main>
+<h1>Informe de Bruno</h1>
+<p class="sub">Suite <strong>a-auth,b-eventos,c-inscripciones,e-gobernanza,f-excedencias,g-jugadores,i-normas</strong> · tactical-calendar · 21/11/2026, 18:20:18 · 10.3 s</p>
+<section class="kpis">
+<div class="kpi hero"><b>100%</b><span>Tasa de éxito (22 de 22)</span></div>
+<div class="kpi"><b>22</b><span>Pasan</span></div>
+<div class="kpi"><b>0</b><span>Fallan</span></div>
+<div class="kpi"><b>0</b><span>Omitidos</span></div>
+</section>
+<table><tbody>
+<tr class="passed"><td><span class="tag passed">Pasa</span></td>
+<td><strong>TC-A04 Anónimo no lee perfiles</strong><br><small>Anónimo</small><details><summary>Petición y respuesta</summary><pre>{
+  &quot;request&quot;: {
+    &quot;method&quot;: &quot;GET&quot;,
+    &quot;url&quot;: &quot;https://rpxdxitntsmgcbbnuyox.supabase.co/rest/v1/profiles?select=id&quot;,
+    &quot;headers&quot;: {
+      &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,
+      &quot;User-Agent&quot;: &quot;bruno-runtime/4.3.0&quot;,
+      &quot;Accept-Encoding&quot;: &quot;gzip, compress, deflate, br&quot;,
+      &quot;Host&quot;: &quot;rpxdxitntsmgcbbnuyox.supabase.co&quot;,
+      &quot;Connection&quot;: &quot;keep-alive&quot;,
+      &quot;content-type&quot;: null
+    },
+    &quot;body&quot;: null
+  },
+  &quot;response&quot;: {
+    &quot;status&quot;: 401,
+    &quot;time_ms&quot;: 223,
+    &quot;body&quot;: &quot;{\&quot;code\&quot;:\&quot;42501\&quot;,\&quot;details\&quot;:null,\&quot;hint\&quot;:\&quot;Grant the required privileges to the current role with: GRANT SELECT ON public.profiles TO anon;\&quot;,\&quot;message\&quot;:\&quot;permission denied for table profiles\&quot;}&quot;
+  }
+}</pre></details></td>
+<td class="num">0.3 s</td></tr>
+<tr class="passed"><td><span class="tag passed">Pasa</span></td>
+<td><strong>TC-A05 Jugador MAD lee su propio perfil</strong><br><small>Jugador MAD</small><details><summary>Petición y respuesta</summary><pre>{
+  &quot;request&quot;: {
+    &quot;method&quot;: &quot;GET&quot;,
+    &quot;url&quot;: &quot;https://rpxdxitntsmgcbbnuyox.supabase.co/rest/v1/profiles?select=nickname,app_role&amp;id=eq.&lt;id&gt;&quot;,
+    &quot;headers&quot;: {
+      &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,
+      &quot;User-Agent&quot;: &quot;bruno-runtime/4.3.0&quot;,
+      &quot;Accept-Encoding&quot;: &quot;gzip, compress, deflate, br&quot;,
+      &quot;Host&quot;: &quot;rpxdxitntsmgcbbnuyox.supabase.co&quot;,
+      &quot;Connection&quot;: &quot;keep-alive&quot;,
+      &quot;content-type&quot;: null
+    },
+    &quot;body&quot;: null
+  },
+  &quot;response&quot;: {
+    &quot;status&quot;: 200,
+    &quot;time_ms&quot;: 386,
+    &quot;body&quot;: &quot;[{\&quot;nickname\&quot;:\&quot;QA Jugador MAD\&quot;,\&quot;app_role\&quot;:\&quot;player\&quot;}]&quot;
+  }
+}</pre></details></td>
+<td class="num">0.9 s</td></tr>
+<tr class="passed"><td><span class="tag passed">Pasa</span></td>
+<td><strong>TC-A06 Bloqueado lee su perfil y figura bloqueado</strong><br><small>Bloqueado</small><details><summary>Petición y respuesta</summary><pre>{
+  &quot;request&quot;: {
+    &quot;method&quot;: &quot;GET&quot;,
+    &quot;url&quot;: &quot;https://rpxdxitntsmgcbbnuyox.supabase.co/rest/v1/profiles?select=nickname,is_blocked&amp;id=eq.&lt;id&gt;&quot;,
+    &quot;headers&quot;: {
+      &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,
+      &quot;User-Agent&quot;: &quot;bruno-runtime/4.3.0&quot;,
+      &quot;Accept-Encoding&quot;: &quot;gzip, compress, deflate, br&quot;,
+      &quot;Host&quot;: &quot;rpxdxitntsmgcbbnuyox.supabase.co&quot;,
+      &quot;Connection&quot;: &quot;keep-alive&quot;,
+      &quot;content-type&quot;: null
+    },
+    &quot;body&quot;: null
+  },
+  &quot;response&quot;: {
+    &quot;status&quot;: 200,
+    &quot;time_ms&quot;: 422,
+    &quot;body&quot;: &quot;[{\&quot;nickname\&quot;:\&quot;QA Bloqueado\&quot;,\&quot;is_blocked\&quot;:true}]&quot;
+  }
+}</pre></details></td>
+<td class="num">0.9 s</td></tr>
+<tr class="passed"><td><span class="tag passed">Pasa</span></td>
+<td><strong>TC-A07 Usuario sin equipo no ve partidas</strong><br><small>Sin equipo</small><details><summary>Petición y respuesta</summary><pre>{
+  &quot;request&quot;: {
+    &quot;method&quot;: &quot;GET&quot;,
+    &quot;url&quot;: &quot;https://rpxdxitntsmgcbbnuyox.supabase.co/rest/v1/events?select=id&quot;,
+    &quot;headers&quot;: {
+      &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,
+      &quot;User-Agent&quot;: &quot;bruno-runtime/4.3.0&quot;,
+      &quot;Accept-Encoding&quot;: &quot;gzip, compress, deflate, br&quot;,
+      &quot;Host&quot;: &quot;rpxdxitntsmgcbbnuyox.supabase.co&quot;,
+      &quot;Connection&quot;: &quot;keep-alive&quot;,
+      &quot;content-type&quot;: null
+    },
+    &quot;body&quot;: null
+  },
+  &quot;response&quot;: {
+    &quot;status&quot;: 200,
+    &quot;time_ms&quot;: 169,
+    &quot;body&quot;: &quot;[]&quot;
+  }
+}</pre></details></td>
+<td class="num">0.6 s</td></tr>
+<tr class="passed"><td><span class="tag passed">Pasa</span></td>
+<td><strong>TC-B06 Bloqueado no ve ninguna partida</strong><br><small>Bloqueado</small><details><summary>Petición y respuesta</summary><pre>{
+  &quot;request&quot;: {
+    &quot;method&quot;: &quot;GET&quot;,
+    &quot;url&quot;: &quot;https://rpxdxitntsmgcbbnuyox.supabase.co/rest/v1/events?select=id&quot;,
+    &quot;headers&quot;: {
+      &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,
+      &quot;User-Agent&quot;: &quot;bruno-runtime/4.3.0&quot;,
+      &quot;Accept-Encoding&quot;: &quot;gzip, compress, deflate, br&quot;,
+      &quot;Host&quot;: &quot;rpxdxitntsmgcbbnuyox.supabase.co&quot;,
+      &quot;Connection&quot;: &quot;keep-alive&quot;,
+      &quot;content-type&quot;: null
+    },
+    &quot;body&quot;: null
+  },
+  &quot;response&quot;: {
+    &quot;status&quot;: 200,
+    &quot;time_ms&quot;: 379,
+    &quot;body&quot;: &quot;[]&quot;
+  }
+}</pre></details></td>
+<td class="num">0.4 s</td></tr>
+<tr class="passed"><td><span class="tag passed">Pasa</span></td>
+<td><strong>TC-B07 Jugador MAD no crea partidas en FOE</strong><br><small>Jugador MAD</small><details><summary>Petición y respuesta</summary><pre>{
+  &quot;request&quot;: {
+    &quot;method&quot;: &quot;POST&quot;,
+    &quot;url&quot;: &quot;https://rpxdxitntsmgcbbnuyox.supabase.co/rest/v1/events&quot;,
+    &quot;headers&quot;: {
+      &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,
+      &quot;User-Agent&quot;: &quot;bruno-runtime/4.3.0&quot;,
+      &quot;Content-Length&quot;: &quot;105&quot;,
+      &quot;Accept-Encoding&quot;: &quot;gzip, compress, deflate, br&quot;,
+      &quot;Host&quot;: &quot;rpxdxitntsmgcbbnuyox.supabase.co&quot;,
+      &quot;Connection&quot;: &quot;keep-alive&quot;,
+      &quot;content-type&quot;: &quot;application/json&quot;
+    },
+    &quot;body&quot;: &quot;{\&quot;title\&quot;:\&quot;QA intrusa\&quot;,\&quot;squad\&quot;:\&quot;FOE\&quot;,\&quot;date\&quot;:\&quot;2030-01-01\&quot;,\&quot;hour\&quot;:\&quot;10:00\&quot;,\&quot;field\&quot;:\&quot;x\&quot;,\&quot;event_type\&quot;:\&quot;normal\&quot;}&quot;
+  },
+  &quot;response&quot;: {
+    &quot;status&quot;: 403,
+    &quot;time_ms&quot;: 363,
+    &quot;body&quot;: &quot;{\&quot;code\&quot;:\&quot;42501\&quot;,\&quot;details\&quot;:null,\&quot;hint\&quot;:null,\&quot;message\&quot;:\&quot;new row violates row-level security policy for table \\\&quot;events\\\&quot;\&quot;}&quot;
+  }
+}</pre></details></td>
+<td class="num">0.4 s</td></tr>
+<tr class="passed"><td><span class="tag passed">Pasa</span></td>
+<td><strong>TC-B08 Super admin ve partidas de ambos equipos</strong><br><small>Super Admin</small><details><summary>Petición y respuesta</summary><pre>{
+  &quot;request&quot;: {
+    &quot;method&quot;: &quot;GET&quot;,
+    &quot;url&quot;: &quot;https://rpxdxitntsmgcbbnuyox.supabase.co/rest/v1/events?select=id,squad&quot;,
+    &quot;headers&quot;: {
+      &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,
+      &quot;User-Agent&quot;: &quot;bruno-runtime/4.3.0&quot;,
+      &quot;Accept-Encoding&quot;: &quot;gzip, compress, deflate, br&quot;,
+      &quot;Host&quot;: &quot;rpxdxitntsmgcbbnuyox.supabase.co&quot;,
+      &quot;Connection&quot;: &quot;keep-alive&quot;,
+      &quot;content-type&quot;: null
+    },
+    &quot;body&quot;: null
+  },
+  &quot;response&quot;: {
+    &quot;status&quot;: 200,
+    &quot;time_ms&quot;: 171,
+    &quot;body&quot;: &quot;[{\&quot;id\&quot;:\&quot;&lt;id&gt;\&quot;,\&quot;squad\&quot;:\&quot;MAD Irregulars\&quot;},{\&quot;id\&quot;:\&quot;&lt;id&gt;\&quot;,\&quot;squad\&quot;:\&quot;FOE\&quot;},{\&quot;id\&quot;:\&quot;&lt;id&gt;\&quot;,\&quot;squad\&quot;:\&quot;FOE\&quot;},{\&quot;id\&quot;:\&quot;&lt;id&gt;\&quot;,\&quot;squad\&quot;:\&quot;FOE\&quot;},{\&quot;id\&quot;:\&quot;&lt;id&gt;\&quot;,\&quot;squad\&quot;:\&quot;FOE\&quot;},{\&quot;id\&quot;:\&quot;&lt;id&gt;\&quot;,\&quot;squad\&quot;:\&quot;FOE\&quot;},{\&quot;id\&quot;:\&quot;&lt;id&gt;\&quot;,\&quot;squad\&quot;:\&quot;FOE\&quot;},{\&quot;id\&quot;:\&quot;&lt;id&gt;\&quot;,\&quot;squad\&quot;:\&quot;FOE\&quot;},{\&quot;id\&quot;:\&quot;&lt;id&gt;\&quot;,\&quot;squad\&quot;:\&quot;MAD Irregulars\&quot;},{\&quot;id\&quot;:\&quot;&lt;id&gt;\&quot;,\&quot;squad\&quot;:\&quot;FOE\&quot;},{\&quot;id\&quot;:\&quot;&lt;id&gt;\&quot;,\&quot;squad\&quot;:\&quot;MAD Irregulars\&quot;},{\&quot;id\&quot;:\&quot;&lt;id&gt;\&quot;,\&quot;squad\&quot;:\&quot;MAD Irregulars\&quot;},{\&quot;id\&quot;:\&quot;&lt;id&gt;\&quot;,\&quot;squad\&quot;:\&quot;MAD Irregulars\&quot;}]&quot;
+  }
+}</pre></details></td>
+<td class="num">0.6 s</td></tr>
+<tr class="passed"><td><span class="tag passed">Pasa</span></td>
+<td><strong>TC-B10 Admin MAD no borra partidas de FOE</strong><br><small>Admin MAD</small><details><summary>Petición y respuesta</summary><pre>{
+  &quot;request&quot;: {
+    &quot;method&quot;: &quot;DELETE&quot;,
+    &quot;url&quot;: &quot;https://rpxdxitntsmgcbbnuyox.supabase.co/rest/v1/events?squad=eq.FOE&amp;select=id&quot;,
+    &quot;headers&quot;: {
+      &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,
+      &quot;User-Agent&quot;: &quot;bruno-runtime/4.3.0&quot;,
+      &quot;Accept-Encoding&quot;: &quot;gzip, compress, deflate, br&quot;,
+      &quot;Host&quot;: &quot;rpxdxitntsmgcbbnuyox.supabase.co&quot;,
+      &quot;Connection&quot;: &quot;keep-alive&quot;,
+      &quot;Prefer&quot;: &quot;return=representation&quot;,
+      &quot;content-type&quot;: null
+    },
+    &quot;body&quot;: null
+  },
+  &quot;response&quot;: {
+    &quot;status&quot;: 200,
+    &quot;time_ms&quot;: 385,
+    &quot;body&quot;: &quot;[]&quot;
+  }
+}</pre></details></td>
+<td class="num">0.8 s</td></tr>
+<tr class="passed"><td><span class="tag passed">Pasa</span></td>
+<td><strong>TC-C02 Anónimo no se inscribe</strong><br><small>Anónimo</small><details><summary>Petición y respuesta</summary><pre>{
+  &quot;request&quot;: {
+    &quot;method&quot;: &quot;POST&quot;,
+    &quot;url&quot;: &quot;https://rpxdxitntsmgcbbnuyox.supabase.co/rest/v1/event_registrations&quot;,
+    &quot;headers&quot;: {
+      &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,
+      &quot;User-Agent&quot;: &quot;bruno-runtime/4.3.0&quot;,
+      &quot;Content-Length&quot;: &quot;125&quot;,
+      &quot;Accept-Encoding&quot;: &quot;gzip, compress, deflate, br&quot;,
+      &quot;Host&quot;: &quot;rpxdxitntsmgcbbnuyox.supabase.co&quot;,
+      &quot;Connection&quot;: &quot;keep-alive&quot;,
+      &quot;content-type&quot;: &quot;application/json&quot;
+    },
+    &quot;body&quot;: &quot;{\&quot;event_id\&quot;:\&quot;&lt;id&gt;\&quot;,\&quot;profile_id\&quot;:\&quot;&lt;id&gt;\&quot;,\&quot;team\&quot;:\&quot;x\&quot;,\&quot;role\&quot;:\&quot;y\&quot;}&quot;
+  },
+  &quot;response&quot;: {
+    &quot;status&quot;: 401,
+    &quot;time_ms&quot;: 395,
+    &quot;body&quot;: &quot;{\&quot;code\&quot;:\&quot;42501\&quot;,\&quot;details\&quot;:null,\&quot;hint\&quot;:\&quot;Grant the required privileges to the current role with: GRANT INSERT ON public.event_registrations TO anon;\&quot;,\&quot;message\&quot;:\&quot;permission denied for table event_registrations\&quot;}&quot;
+  }
+}</pre></details></td>
+<td class="num">0.4 s</td></tr>
+<tr class="passed"><td><span class="tag passed">Pasa</span></td>
+<td><strong>TC-C04 Bloqueado no ve inscripciones</strong><br><small>Bloqueado</small><details><summary>Petición y respuesta</summary><pre>{
+  &quot;request&quot;: {
+    &quot;method&quot;: &quot;GET&quot;,
+    &quot;url&quot;: &quot;https://rpxdxitntsmgcbbnuyox.supabase.co/rest/v1/event_registrations?select=id&quot;,
+    &quot;headers&quot;: {
+      &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,
+      &quot;User-Agent&quot;: &quot;bruno-runtime/4.3.0&quot;,
+      &quot;Accept-Encoding&quot;: &quot;gzip, compress, deflate, br&quot;,
+      &quot;Host&quot;: &quot;rpxdxitntsmgcbbnuyox.supabase.co&quot;,
+      &quot;Connection&quot;: &quot;keep-alive&quot;,
+      &quot;content-type&quot;: null
+    },
+    &quot;body&quot;: null
+  },
+  &quot;response&quot;: {
+    &quot;status&quot;: 200,
+    &quot;time_ms&quot;: 164,
+    &quot;body&quot;: &quot;[]&quot;
+  }
+}</pre></details></td>
+<td class="num">0.2 s</td></tr>
+<tr class="passed"><td><span class="tag passed">Pasa</span></td>
+<td><strong>TC-C05 Jugador MAD solo ve inscripciones de partidas de MAD</strong><br><small>Jugador MAD</small><details><summary>Petición y respuesta</summary><pre>{
+  &quot;request&quot;: {
+    &quot;method&quot;: &quot;GET&quot;,
+    &quot;url&quot;: &quot;https://rpxdxitntsmgcbbnuyox.supabase.co/rest/v1/event_registrations?select=id,events(squad)&quot;,
+    &quot;headers&quot;: {
+      &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,
+      &quot;User-Agent&quot;: &quot;bruno-runtime/4.3.0&quot;,
+      &quot;Accept-Encoding&quot;: &quot;gzip, compress, deflate, br&quot;,
+      &quot;Host&quot;: &quot;rpxdxitntsmgcbbnuyox.supabase.co&quot;,
+      &quot;Connection&quot;: &quot;keep-alive&quot;,
+      &quot;content-type&quot;: null
+    },
+    &quot;body&quot;: null
+  },
+  &quot;response&quot;: {
+    &quot;status&quot;: 200,
+    &quot;time_ms&quot;: 359,
+    &quot;body&quot;: &quot;[{\&quot;id\&quot;:\&quot;&lt;id&gt;\&quot;,\&quot;events\&quot;:{\&quot;squad\&quot;:\&quot;MAD Irregulars\&quot;}}]&quot;
+  }
+}</pre></details></td>
+<td class="num">0.4 s</td></tr>
+<tr class="passed"><td><span class="tag passed">Pasa</span></td>
+<td><strong>TC-E02 Anónimo no ve faltas FOE (RLS)</strong><br><small>Anónimo</small><details><summary>Petición y respuesta</summary><pre>{
+  &quot;request&quot;: {
+    &quot;method&quot;: &quot;GET&quot;,
+    &quot;url&quot;: &quot;https://rpxdxitntsmgcbbnuyox.supabase.co/rest/v1/foe_infractions?select=id&quot;,
+    &quot;headers&quot;: {
+      &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,
+      &quot;User-Agent&quot;: &quot;bruno-runtime/4.3.0&quot;,
+      &quot;Accept-Encoding&quot;: &quot;gzip, compress, deflate, br&quot;,
+      &quot;Host&quot;: &quot;rpxdxitntsmgcbbnuyox.supabase.co&quot;,
+      &quot;Connection&quot;: &quot;keep-alive&quot;,
+      &quot;content-type&quot;: null
+    },
+    &quot;body&quot;: null
+  },
+  &quot;response&quot;: {
+    &quot;status&quot;: 200,
+    &quot;time_ms&quot;: 366,
+    &quot;body&quot;: &quot;[]&quot;
+  }
+}</pre></details></td>
+<td class="num">0.4 s</td></tr>
+<tr class="passed"><td><span class="tag passed">Pasa</span></td>
+<td><strong>TC-E03 Jugador MAD no ve votaciones FOE</strong><br><small>Jugador MAD</small><details><summary>Petición y respuesta</summary><pre>{
+  &quot;request&quot;: {
+    &quot;method&quot;: &quot;GET&quot;,
+    &quot;url&quot;: &quot;https://rpxdxitntsmgcbbnuyox.supabase.co/rest/v1/foe_polls?select=id&quot;,
+    &quot;headers&quot;: {
+      &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,
+      &quot;User-Agent&quot;: &quot;bruno-runtime/4.3.0&quot;,
+      &quot;Accept-Encoding&quot;: &quot;gzip, compress, deflate, br&quot;,
+      &quot;Host&quot;: &quot;rpxdxitntsmgcbbnuyox.supabase.co&quot;,
+      &quot;Connection&quot;: &quot;keep-alive&quot;,
+      &quot;content-type&quot;: null
+    },
+    &quot;body&quot;: null
+  },
+  &quot;response&quot;: {
+    &quot;status&quot;: 200,
+    &quot;time_ms&quot;: 359,
+    &quot;body&quot;: &quot;[]&quot;
+  }
+}</pre></details></td>
+<td class="num">0.4 s</td></tr>
+<tr class="passed"><td><span class="tag passed">Pasa</span></td>
+<td><strong>TC-E04 Jugador FOE sin cargo no ve votaciones de la Junta</strong><br><small>Jugador FOE</small><details><summary>Petición y respuesta</summary><pre>{
+  &quot;request&quot;: {
+    &quot;method&quot;: &quot;GET&quot;,
+    &quot;url&quot;: &quot;https://rpxdxitntsmgcbbnuyox.supabase.co/rest/v1/foe_polls?select=id&quot;,
+    &quot;headers&quot;: {
+      &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,
+      &quot;User-Agent&quot;: &quot;bruno-runtime/4.3.0&quot;,
+      &quot;Accept-Encoding&quot;: &quot;gzip, compress, deflate, br&quot;,
+      &quot;Host&quot;: &quot;rpxdxitntsmgcbbnuyox.supabase.co&quot;,
+      &quot;Connection&quot;: &quot;keep-alive&quot;,
+      &quot;content-type&quot;: null
+    },
+    &quot;body&quot;: null
+  },
+  &quot;response&quot;: {
+    &quot;status&quot;: 200,
+    &quot;time_ms&quot;: 166,
+    &quot;body&quot;: &quot;[]&quot;
+  }
+}</pre></details></td>
+<td class="num">0.6 s</td></tr>
+<tr class="passed"><td><span class="tag passed">Pasa</span></td>
+<td><strong>TC-F01 Anónimo no crea excedencias</strong><br><small>Anónimo</small><details><summary>Petición y respuesta</summary><pre>{
+  &quot;request&quot;: {
+    &quot;method&quot;: &quot;POST&quot;,
+    &quot;url&quot;: &quot;https://rpxdxitntsmgcbbnuyox.supabase.co/rest/v1/player_leaves&quot;,
+    &quot;headers&quot;: {
+      &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,
+      &quot;User-Agent&quot;: &quot;bruno-runtime/4.3.0&quot;,
+      &quot;Content-Length&quot;: &quot;103&quot;,
+      &quot;Accept-Encoding&quot;: &quot;gzip, compress, deflate, br&quot;,
+      &quot;Host&quot;: &quot;rpxdxitntsmgcbbnuyox.supabase.co&quot;,
+      &quot;Connection&quot;: &quot;keep-alive&quot;,
+      &quot;content-type&quot;: &quot;application/json&quot;
+    },
+    &quot;body&quot;: &quot;{\&quot;profile_id\&quot;:\&quot;&lt;id&gt;\&quot;,\&quot;start_date\&quot;:\&quot;2030-01-01\&quot;,\&quot;end_date\&quot;:\&quot;2030-01-10\&quot;}&quot;
+  },
+  &quot;response&quot;: {
+    &quot;status&quot;: 401,
+    &quot;time_ms&quot;: 394,
+    &quot;body&quot;: &quot;{\&quot;code\&quot;:\&quot;42501\&quot;,\&quot;details\&quot;:null,\&quot;hint\&quot;:\&quot;Grant the required privileges to the current role with: GRANT INSERT ON public.player_leaves TO anon;\&quot;,\&quot;message\&quot;:\&quot;permission denied for table player_leaves\&quot;}&quot;
+  }
+}</pre></details></td>
+<td class="num">0.4 s</td></tr>
+<tr class="passed"><td><span class="tag passed">Pasa</span></td>
+<td><strong>TC-F02 Anónimo no lee excedencias</strong><br><small>Anónimo</small><details><summary>Petición y respuesta</summary><pre>{
+  &quot;request&quot;: {
+    &quot;method&quot;: &quot;GET&quot;,
+    &quot;url&quot;: &quot;https://rpxdxitntsmgcbbnuyox.supabase.co/rest/v1/player_leaves?select=id&quot;,
+    &quot;headers&quot;: {
+      &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,
+      &quot;User-Agent&quot;: &quot;bruno-runtime/4.3.0&quot;,
+      &quot;Accept-Encoding&quot;: &quot;gzip, compress, deflate, br&quot;,
+      &quot;Host&quot;: &quot;rpxdxitntsmgcbbnuyox.supabase.co&quot;,
+      &quot;Connection&quot;: &quot;keep-alive&quot;,
+      &quot;content-type&quot;: null
+    },
+    &quot;body&quot;: null
+  },
+  &quot;response&quot;: {
+    &quot;status&quot;: 200,
+    &quot;time_ms&quot;: 358,
+    &quot;body&quot;: &quot;[]&quot;
+  }
+}</pre></details></td>
+<td class="num">0.4 s</td></tr>
+<tr class="passed"><td><span class="tag passed">Pasa</span></td>
+<td><strong>TC-F03 Bloqueado no lee excedencias</strong><br><small>Bloqueado</small><details><summary>Petición y respuesta</summary><pre>{
+  &quot;request&quot;: {
+    &quot;method&quot;: &quot;GET&quot;,
+    &quot;url&quot;: &quot;https://rpxdxitntsmgcbbnuyox.supabase.co/rest/v1/player_leaves?select=id&quot;,
+    &quot;headers&quot;: {
+      &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,
+      &quot;User-Agent&quot;: &quot;bruno-runtime/4.3.0&quot;,
+      &quot;Accept-Encoding&quot;: &quot;gzip, compress, deflate, br&quot;,
+      &quot;Host&quot;: &quot;rpxdxitntsmgcbbnuyox.supabase.co&quot;,
+      &quot;Connection&quot;: &quot;keep-alive&quot;,
+      &quot;content-type&quot;: null
+    },
+    &quot;body&quot;: null
+  },
+  &quot;response&quot;: {
+    &quot;status&quot;: 200,
+    &quot;time_ms&quot;: 347,
+    &quot;body&quot;: &quot;[]&quot;
+  }
+}</pre></details></td>
+<td class="num">0.4 s</td></tr>
+<tr class="passed"><td><span class="tag passed">Pasa</span></td>
+<td><strong>TC-G02 Jugador MAD solo ve perfiles de su unidad</strong><br><small>Jugador MAD</small><details><summary>Petición y respuesta</summary><pre>{
+  &quot;request&quot;: {
+    &quot;method&quot;: &quot;GET&quot;,
+    &quot;url&quot;: &quot;https://rpxdxitntsmgcbbnuyox.supabase.co/rest/v1/profiles?select=nickname,squad&quot;,
+    &quot;headers&quot;: {
+      &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,
+      &quot;User-Agent&quot;: &quot;bruno-runtime/4.3.0&quot;,
+      &quot;Accept-Encoding&quot;: &quot;gzip, compress, deflate, br&quot;,
+      &quot;Host&quot;: &quot;rpxdxitntsmgcbbnuyox.supabase.co&quot;,
+      &quot;Connection&quot;: &quot;keep-alive&quot;,
+      &quot;content-type&quot;: null
+    },
+    &quot;body&quot;: null
+  },
+  &quot;response&quot;: {
+    &quot;status&quot;: 200,
+    &quot;time_ms&quot;: 358,
+    &quot;body&quot;: &quot;[{\&quot;nickname\&quot;:\&quot;QA Jugador MAD\&quot;,\&quot;squad\&quot;:\&quot;MAD Irregulars\&quot;},{\&quot;nickname\&quot;:\&quot;QA Super Admin\&quot;,\&quot;squad\&quot;:\&quot;MAD Irregulars\&quot;},{\&quot;nickname\&quot;:\&quot;QA Admin MAD\&quot;,\&quot;squad\&quot;:\&quot;MAD Irregulars\&quot;}]&quot;
+  }
+}</pre></details></td>
+<td class="num">0.4 s</td></tr>
+<tr class="passed"><td><span class="tag passed">Pasa</span></td>
+<td><strong>TC-G04 Jugador MAD no cambia el rol de otros</strong><br><small>Jugador MAD</small><details><summary>Petición y respuesta</summary><pre>{
+  &quot;request&quot;: {
+    &quot;method&quot;: &quot;PATCH&quot;,
+    &quot;url&quot;: &quot;https://rpxdxitntsmgcbbnuyox.supabase.co/rest/v1/profiles?id=neq.&lt;id&gt;&amp;select=id&quot;,
+    &quot;headers&quot;: {
+      &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,
+      &quot;User-Agent&quot;: &quot;bruno-runtime/4.3.0&quot;,
+      &quot;Content-Length&quot;: &quot;20&quot;,
+      &quot;Accept-Encoding&quot;: &quot;gzip, compress, deflate, br&quot;,
+      &quot;Host&quot;: &quot;rpxdxitntsmgcbbnuyox.supabase.co&quot;,
+      &quot;Connection&quot;: &quot;keep-alive&quot;,
+      &quot;Prefer&quot;: &quot;return=representation&quot;,
+      &quot;content-type&quot;: &quot;application/json&quot;
+    },
+    &quot;body&quot;: &quot;{\&quot;app_role\&quot;:\&quot;admin\&quot;}&quot;
+  },
+  &quot;response&quot;: {
+    &quot;status&quot;: 200,
+    &quot;time_ms&quot;: 345,
+    &quot;body&quot;: &quot;[]&quot;
+  }
+}</pre></details></td>
+<td class="num">0.3 s</td></tr>
+<tr class="passed"><td><span class="tag passed">Pasa</span></td>
+<td><strong>TC-I03 Jugador MAD no sube documentos</strong><br><small>Jugador MAD</small><details><summary>Petición y respuesta</summary><pre>{
+  &quot;request&quot;: {
+    &quot;method&quot;: &quot;POST&quot;,
+    &quot;url&quot;: &quot;https://rpxdxitntsmgcbbnuyox.supabase.co/rest/v1/team_documents&quot;,
+    &quot;headers&quot;: {
+      &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,
+      &quot;User-Agent&quot;: &quot;bruno-runtime/4.3.0&quot;,
+      &quot;Content-Length&quot;: &quot;87&quot;,
+      &quot;Accept-Encoding&quot;: &quot;gzip, compress, deflate, br&quot;,
+      &quot;Host&quot;: &quot;rpxdxitntsmgcbbnuyox.supabase.co&quot;,
+      &quot;Connection&quot;: &quot;keep-alive&quot;,
+      &quot;content-type&quot;: &quot;application/json&quot;
+    },
+    &quot;body&quot;: &quot;{\&quot;squad\&quot;:\&quot;MAD Irregulars\&quot;,\&quot;category\&quot;:\&quot;bof\&quot;,\&quot;title\&quot;:\&quot;QA\&quot;,\&quot;file_url\&quot;:\&quot;x\&quot;,\&quot;file_path\&quot;:\&quot;x\&quot;}&quot;
+  },
+  &quot;response&quot;: {
+    &quot;status&quot;: 403,
+    &quot;time_ms&quot;: 365,
+    &quot;body&quot;: &quot;{\&quot;code\&quot;:\&quot;42501\&quot;,\&quot;details\&quot;:null,\&quot;hint\&quot;:null,\&quot;message\&quot;:\&quot;new row violates row-level security policy for table \\\&quot;team_documents\\\&quot;\&quot;}&quot;
+  }
+}</pre></details></td>
+<td class="num">0.4 s</td></tr>
+<tr class="passed"><td><span class="tag passed">Pasa</span></td>
+<td><strong>TC-I04 Jugador MAD no borra documentos</strong><br><small>Jugador MAD</small><details><summary>Petición y respuesta</summary><pre>{
+  &quot;request&quot;: {
+    &quot;method&quot;: &quot;DELETE&quot;,
+    &quot;url&quot;: &quot;https://rpxdxitntsmgcbbnuyox.supabase.co/rest/v1/team_documents?id=not.is.null&amp;select=id&quot;,
+    &quot;headers&quot;: {
+      &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,
+      &quot;User-Agent&quot;: &quot;bruno-runtime/4.3.0&quot;,
+      &quot;Accept-Encoding&quot;: &quot;gzip, compress, deflate, br&quot;,
+      &quot;Host&quot;: &quot;rpxdxitntsmgcbbnuyox.supabase.co&quot;,
+      &quot;Connection&quot;: &quot;keep-alive&quot;,
+      &quot;Prefer&quot;: &quot;return=representation&quot;,
+      &quot;content-type&quot;: null
+    },
+    &quot;body&quot;: null
+  },
+  &quot;response&quot;: {
+    &quot;status&quot;: 200,
+    &quot;time_ms&quot;: 390,
+    &quot;body&quot;: &quot;[]&quot;
+  }
+}</pre></details></td>
+<td class="num">0.4 s</td></tr>
+<tr class="passed"><td><span class="tag passed">Pasa</span></td>
+<td><strong>TC-I05 El bucket de normas es privado</strong><br><small>Anónimo</small><details><summary>Petición y respuesta</summary><pre>{
+  &quot;request&quot;: {
+    &quot;method&quot;: &quot;GET&quot;,
+    &quot;url&quot;: &quot;https://rpxdxitntsmgcbbnuyox.supabase.co/storage/v1/object/public/team-documents/qa-no-existe.pdf&quot;,
+    &quot;headers&quot;: {
+      &quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,
+      &quot;User-Agent&quot;: &quot;bruno-runtime/4.3.0&quot;,
+      &quot;Accept-Encoding&quot;: &quot;gzip, compress, deflate, br&quot;,
+      &quot;Host&quot;: &quot;rpxdxitntsmgcbbnuyox.supabase.co&quot;,
+      &quot;Connection&quot;: &quot;keep-alive&quot;,
+      &quot;content-type&quot;: null
+    },
+    &quot;body&quot;: null
+  },
+  &quot;response&quot;: {
+    &quot;status&quot;: 400,
+    &quot;time_ms&quot;: 507,
+    &quot;body&quot;: &quot;{\&quot;statusCode\&quot;:\&quot;404\&quot;,\&quot;error\&quot;:\&quot;Bucket not found\&quot;,\&quot;message\&quot;:\&quot;Bucket not found\&quot;,\&quot;code\&quot;:\&quot;NoSuchBucket\&quot;}&quot;
+  }
+}</pre></details></td>
+<td class="num">0.5 s</td></tr>
+</tbody></table>
+<footer>Generado por Ivan QA Lab. Sin claves, tokens, contraseñas, emails ni ids de usuario.</footer>
+</main></body></html>
